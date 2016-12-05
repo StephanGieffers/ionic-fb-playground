@@ -1,59 +1,20 @@
-# IONIC 2 Boilerplate
- [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT) [![Dependency Status](https://david-dm.org/marcoturi/ionic2-boilerplate.svg)](https://david-dm.org/marcoturi/ionic2-boilerplate) [![devDependencies Status](https://david-dm.org/marcoturi/ionic2-boilerplate/dev-status.svg)](https://david-dm.org/marcoturi/ionic2-boilerplate?type=dev) ![build status](https://gitlab.com/marco_turi/ionic2-boilerplate/badges/master/build.svg) [![coverage report](https://gitlab.com/marco_turi/ionic2-boilerplate/badges/master/coverage.svg)](https://gitlab.com/marco_turi/ionic2-boilerplate/commits/master) [![Join the chat at https://gitter.im/marcoturi/ionic2-boilerplate](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/marcoturi/ionic2-boilerplate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-<br>A ionic 2 boilerplate for starting new projects. This boilerplate will follow the best practices for angular and ionic development.
+# IONIC-firebase playground
+This is sample project created for the Berlin IONIC Meetup to present some integration challanges with IONIC 2 and Firebase, 
+especially (Realtime) Database and Storage.
 
-NOTE: I moved Unit tests from running through Rollup to Webpack with release 0.10.0. If you are looking to the old configuration see the [rollup](https://github.com/marcoturi/ionic2-boilerplate/tree/rollup) branch.
-## Table of Contents
-- [Features](#features)
-- [Roadmap](#roadmap)
-- [Installation & Configuration](#installation)
-    - [Quick Start](#quick-start)
-    - [NPM scripts commands](#npm-scripts)
-    - [Gitlab CI Configuration](#gitlab-ci)
-- [Tips](#tips)
-    - [Optional Libraries](#optional-libraries)
-    - [Git Workflow](#git-workflow)
-    - [Useful Links](#links)
-    - [Ionic & Cordova](#ionic-cordova)
-    - [Webstorm](#webstorm)
-    - [Windows](#windows)
-- [License](#license)
-
-## <a name="features"></a>Features
-- Ionic RC3
-- [Es-Lodash](#optional-libraries) instead of Lodash to reduce final bundle size.
-- [NVM](https://github.com/creationix/nvm) to manage multiple active node.js versions
-- [Yarn](https://github.com/yarnpkg/yarn) for fast, reliable, and secure dependency management.
-- [BetterScripts](https://github.com/benoror/better-npm-run) for better NPM scripts.
-- ENV variables from package.json injected automatically.
-- Documentation with [Typedoc](https://github.com/TypeStrong/typedoc/).
-- Continuous Integration with Gitlab CI [see here for info](#gitlab-ci).
-    - Automatic apk only when pushing to release branch.
-    - Automatic ipa through ionic package only when pushing to release branch.
-    - A [Docker image](https://github.com/marcoturi/ionic-docker).
-- Tests
-    - Unit tests with Karma.
-    - E2E tests with Protractor.
-    - Screenshot reporter for Protractor.
-    - Code coverage with Istanbul.
-    - Gitlab badge [see here for info](#gitlab-ci)
-- Linting
-    - [SCSS Lint](https://github.com/HugoGiraudel/sass-boilerplate) following Sass Guidelines.
-    - TSlint with [Codelyzer](https://github.com/mgechev/codelyzer).
-- GIT 
-    - Workflow with [Commitizen](https://github.com/commitizen/cz-cli).
-    - Automatic changelog.
-    - Automatic alignment of app version in config.xml from package.json through cordova hook.
-
-## <a name="roadmap"></a>Roadmap
-- Automatic download .ipa in gitlab artificts.
-
+ 
 ## <a name="installation"></a>Installation & Configuration
-### <a name="quick-start"></a>Quick Start
+### Build on IONIC 2 Boilerplate
+ This app is build based on the outrageous []IONIC 2 Boilerplate Template from Marco Turi](https://github.com/marcoturi/ionic2-boilerplate)
+ 
+ Most of the content in the section is based on Marcos original Readme.
+### <a name="quick-start"></a>Quick Start/ Dependencies
 ```bash
 # Required dependecies (on Mac Os also install ios-sim and ios-deploy)
 npm i -g cordova ionic yarn
 gem install scss_lint
+
+// TODO: add information on how to clone this project
 
 # Clone the repo --depth 1 removes all but one .git commit history
 git clone --depth 1 https://github.com/marcoturi/ionic2-boilerplate.git
@@ -92,25 +53,6 @@ npm run dev
 | `ios:release`     | Build .ipa with production environment vars            |
 | `android:dev`     | Build .apk using dev environment vars                  |
 | `android:release` | Build .apk with production environment vars            |
-
-### <a name="gitlab-ci"></a>Gitlab CI Configuration
-- To get code coverage percentage badge use the following regexp: `Lines\s*:\s*(\d*\.?\d+)%` in Gitlab CI/CD pipelines.
-- To get the automatic .ipa from ionic package first setup a ionic.io profile with certificates for ios. Secondly add the following Secret variables in Gitlab. N.B. Be sure to don't show Build results (edit project settings) for your repo otherwise those vars could be exposed.
-
-| Key                            | Description                                                                                                      |
-|--------------------------------|------------------------------------------------------------------------------------------------------------------|
-| `IONIC_LOGIN_EMAIL`            | Your ionic.io email                                                                                              |
-| `IONIC_LOGIN_PASSWORD`         | Your ionic.io password                                                                                           |
-| `IONIC_PACKAGE_BUILD_RELEASE`  | (Optional) Indicate whether this is a release build. Possible values are `true` or `false`. Defaults to `false`. |
-| `IONIC_PACKAGE_BUILD_PROFILE`  | Security profile to use for the build, as defined in Ionic.io console.                                           |
-
-## <a name="tips"></a>Tips
-### <a name="optional-libraries"></a>Optional Libraries
-If you want everything to just work nicely with rollup, use es2015 libraries like lodash-es instead of lodash. In the case of lodash-es try to do: `import map from 'lodash-es/map'` rather than `import { map } from 'lodash-es'`. See [here](https://github.com/rollup/rollup/wiki/Troubleshooting) for further info. To find examples on how to import 3rd party libs with ionic and rollup see [here](https://github.com/danbucholtz/ionic-third-party-lib-mega-test) and [here](http://ionicframework.com/docs/v2/resources/third-party-libs/)
-- Error logging: [Sentry](https://docs.sentry.io/clients/javascript/integrations/angular2/)
-- Database: [PouchDB](https://pouchdb.com/) or [Ionic-storage](https://github.com/driftyco/ionic-storage). Don't use localstorage as it can be deleted by OS to free memory.
-- Time and Dates: [MomentJs](http://momentjs.com/)
-- [NGRX](https://github.com/ngrx/store) pattern/library if you plan to make a big app.
 
 ### <a name="git-workflow"></a>Git Workflow
 - Optionally you can use [Git flow](http://danielkummer.github.io/git-flow-cheatsheet/)
