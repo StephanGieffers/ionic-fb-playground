@@ -14,6 +14,16 @@ $text-color:        #000;
 $background-color:  #fff;
 
 
+// alice colors
+$alice-background: rgb(52, 149, 185);
+$alice-lunch: #7cc5e7;
+$alice-light-black: #333;
+$alice-dark-black: #000;
+$alice-grey: #666;
+$alice-light-green: rgb(174, 201, 11);
+$alice-orange: #c90;
+
+
 // Named Color Variables
 // --------------------------------------------------
 // Named colors makes it easy to reuse colors on various components.
@@ -23,12 +33,13 @@ $background-color:  #fff;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #387ef5,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
-  favorite:   #69bb7b
+    primary:    $alice-light-green, //#387ef5,
+    secondary:  $alice-lunch, // was #32db64
+    danger:     $alice-orange,
+    light:      $alice-grey,
+    dark:       $alice-light-black,
+    favorite:   $alice-lunch, // #69bb7b  Alice Emphasis
+    black:      $alice-dark-black
 );
 
 

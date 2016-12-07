@@ -1,0 +1,67 @@
+page-schedule {
+  ion-content {
+    background-color: $alice-background !important;
+  }
+
+  ion-row {
+    padding: 0;
+    border-bottom-style: solid;
+    border-bottom-color: #fff;
+    border-bottom-width: 1px;
+        // letter-spacing: 1.2px;
+  }
+
+  ion-row {
+     padding: 0;
+  }
+
+  ion-col {
+    min-height: 5rem;
+  }
+
+  .time {
+    background-color: $alice-light-black;
+    font-weight: bold;
+    color: #fff;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+    flex: 0 0 15%;
+    max-width: 15%;
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+  }
+
+  .session {
+    flex: 0 0 60%;
+    max-width: 60%;
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+  }
+
+  .speaker {
+    flex: 0 0 25%;
+    max-width: 25%;
+    text-align: right;
+    word-wrap: initial;
+    font-family: 'Roboto Condensed', Arial, sans-serif;
+   }
+
+  .live {
+    background-color: $alice-grey;
+    }
+
+   .lunch {
+    background-color: $alice-lunch;
+  }
+
+  .danger {
+    background-color: $alice-orange;
+  }
+
+  .no-time {
+    background-color: $alice-background;
+    font-weight: bold;
+
+    time {
+      background-color: $alice-background;
+    }
+  }
+}

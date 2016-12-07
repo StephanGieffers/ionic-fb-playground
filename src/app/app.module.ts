@@ -5,6 +5,19 @@ import { AboutPage } from '../pages/about/about.page';
 import { ContactPage } from '../pages/contact/contact.page';
 import { HomePage } from '../pages/home/home.page';
 import { TabsPage } from '../pages/tabs/tabs.page';
+import { SchedulePage } from '../pages/schedule/schedule';
+import { Schedule } from '../providers/schedule';
+
+/*
+import { AngularFireModule } from 'angularfire2';
+export const firebaseConfig = {
+    apiKey: 'AIzaSyASgp214J9VsQNEpcXX9fRpD0HGk0tiOPg',
+    authDomain: 'ionic-fb-playground.firebaseapp.com',
+    databaseURL: 'https://ionic-fb-playground.firebaseio.com',
+    storageBucket: 'ionic-fb-playground.appspot.com',
+    messagingSenderId: '608035479083',
+};
+*/
 
 @NgModule({
     declarations: [
@@ -13,9 +26,11 @@ import { TabsPage } from '../pages/tabs/tabs.page';
         ContactPage,
         HomePage,
         TabsPage,
+        SchedulePage,
     ],
     imports: [
         IonicModule.forRoot(MyApp),
+//        AngularFireModule.initializeApp(firebaseConfig),
     ],
     bootstrap: [IonicApp],
     entryComponents: [
@@ -24,7 +39,10 @@ import { TabsPage } from '../pages/tabs/tabs.page';
         ContactPage,
         HomePage,
         TabsPage,
+        SchedulePage,
     ],
-    providers: [],
+    providers: [
+        Schedule,
+    ],
 })
 export class AppModule {}
