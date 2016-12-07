@@ -1,0 +1,23 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Schedule - with Angular Fire</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+    <ion-grid no-padding>
+        <ion-row  tappable *ngFor="let event of schedule | async">
+            <ion-col class="time">{{event.time}}</ion-col>
+            <ion-col class="session">{{event.session}}</ion-col>
+            <ion-col class="speaker">{{event.speaker}}</ion-col>
+            <ion-col class="reservation">
+                <!--ion-icon name="heart" [isActive]="event.like" (click)="like(event)"></ion-icon-->
+                <ion-icon name="heart" [isActive]="likes[event.sessionID]" (click)="like(event)"></ion-icon>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+

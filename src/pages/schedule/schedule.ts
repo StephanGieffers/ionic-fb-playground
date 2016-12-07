@@ -17,18 +17,21 @@ export class SchedulePage {
         /* tslint:disable */
         const dummy =  [
             {
+                "sessionID": "1",
                 "time": "8:00",
                 "type" :"live",
                 "session": "Early Bird Secrets",
                 "speaker": "Peter"
             },
             {
+                "sessionID": "2",
                 "time": "8:30",
                 "type" :"",
                 "session": "Welcome for everybody late...",
                 "speaker": "Mary"
             },
             {
+                "sessionID": "3",
                 "time": "9:00",
                 "type" :"",
                 "session": "Welcome for the guys too late ...",
