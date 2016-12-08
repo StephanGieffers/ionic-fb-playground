@@ -11,6 +11,7 @@
     <button ion-button (click)="uploadDemo()">upload demo</button>
     <ion-item>Progress: {{progress}} % done</ion-item>
     <button ion-button (click)="downloadDemo()">"download" demo</button>
-    <ion-item><a [href]="downloadUrl" *ngIf="downloadUrl!==''">this is the retrieved link</a></ion-item>
+    <ion-item text-wrap><a [href]="downloadUrl" *ngIf="downloadUrl!==''">
+        this is the retrieved link: {{downloadUrl}}</a></ion-item>
 
 </ion-content>
