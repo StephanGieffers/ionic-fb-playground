@@ -7,17 +7,20 @@ import { HomePage } from '../pages/home/home.page';
 import { TabsPage } from '../pages/tabs/tabs.page';
 import { SchedulePage } from '../pages/schedule/schedule';
 import { ScheduleAfPage } from '../pages/schedule-af/schedule-af';
+import { FileDemoPage } from '../pages/file-demo/file-demo';
 
 import { Schedule } from '../providers/schedule';
 
 import { AngularFireModule } from 'angularfire2';
+/* tslint:disable */
 export const firebaseConfig = {
-    apiKey: 'AIzaSyASgp214J9VsQNEpcXX9fRpD0HGk0tiOPg',
-    authDomain: 'ionic-fb-playground.firebaseapp.com',
-    databaseURL: 'https://ionic-fb-playground.firebaseio.com',
-    storageBucket: 'ionic-fb-playground.appspot.com',
-    messagingSenderId: '608035479083',
+    apiKey: "AIzaSyAiB9UInPT3SIz2Fe7OUfoe_Er9BJwNlhE",
+    authDomain: "meetup-test.firebaseapp.com",
+    databaseURL: "https://meetup-test.firebaseio.com",
+    storageBucket: "meetup-test.appspot.com",
+    messagingSenderId: "1089451320274",
 };
+/* tslint:enable */
 
 @NgModule({
     declarations: [
@@ -28,6 +31,7 @@ export const firebaseConfig = {
         TabsPage,
         SchedulePage,
         ScheduleAfPage,
+        FileDemoPage,
     ],
     imports: [
        IonicModule.forRoot(MyApp),
@@ -42,6 +46,7 @@ export const firebaseConfig = {
         TabsPage,
         SchedulePage,
         ScheduleAfPage,
+        FileDemoPage,
     ],
     providers: [
         Schedule,

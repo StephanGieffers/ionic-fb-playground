@@ -11,7 +11,7 @@ export class Schedule {
 
       this.subject = new Subject();
 
-      firebase.database().ref('schedule').on('value',
+      firebase.database().ref('v1/public/schedule').on('value',
           (snapshot) => {
               console.log('new data has arrived in provider');
               ngZone.run(() => {

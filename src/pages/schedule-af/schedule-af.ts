@@ -7,40 +7,46 @@ import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'a
 })
 export class ScheduleAfPage {
     public schedule: FirebaseListObservable<any>;
-    public likes;
+    public likes = {};
     public afLikes: FirebaseObjectObservable<any>;
 
     constructor(af: AngularFire) {
-        this.schedule = af.database.list('/schedule');
-        const myUserID = '1233445'; // in real life this is based on auth ...
-        this.afLikes = af.database.object('/users/' + myUserID, { preserveSnapshot: true });
+        this.schedule = af.database.list('v1/public/schedule');
+
+        const myUserID = '1234-dummyuser'; // in real life this is based on auth ...
+        this.afLikes = af.database.object('v1/users/' + myUserID, { preserveSnapshot: true });
         this.afLikes.subscribe(snapshot => {
-                this.likes = snapshot.val();
+                let value = snapshot.val();
+                this.likes = (!value) ? {} : snapshot.val();
             });
     }
 
     openEvent(event) {
-        console.log('should open event (not yet implented):', event);
+        console.log('should open event (not yet implemented):', event);
     }
 
     ionViewDidLoad() {
       console.log('Hello ScheduleAfPage Page');
     }
 
-    like(event, newBool) {
+    like(slot) {
+        slot.like = !slot.like;
+
         /*
-         event.like = !event.like;
-        let key = event.$key;
+        let key = slot.$key;
         // the event object contains some hidden methods
         // the need to be deleted before the object can be updated
-        delete event.$key;
-        delete event.$exists;
-        this.schedule.update(key, event);
+
+        delete slot.$key;
+        delete slot.$exists;
+        this.schedule.update(key, slot);
         */
 
-        let likeUpdate = {};
-        likeUpdate[event.sessionID] = !this.likes[event.sessionID];
-        this.afLikes.update(likeUpdate);
+        /*
+         let likeUpdate = {};
+         likeUpdate[slot.sessionID] = !this.likes[slot.sessionID];
+         this.afLikes.update(likeUpdate);
+        */
     }
 
 }

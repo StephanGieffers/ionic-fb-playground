@@ -6,13 +6,15 @@ import { TabsPage } from '../pages/tabs/tabs.page';
 import * as firebase from 'firebase';
 
 // This is not a secret! The information is known to whomever can run a debugger
+/* tslint:disable */
 export const firebaseConfig = {
-    apiKey: 'AIzaSyASgp214J9VsQNEpcXX9fRpD0HGk0tiOPg',
-    authDomain: 'ionic-fb-playground.firebaseapp.com',
-    databaseURL: 'https://ionic-fb-playground.firebaseio.com',
-    storageBucket: 'ionic-fb-playground.appspot.com',
-    messagingSenderId: '608035479083',
+    apiKey: "AIzaSyAiB9UInPT3SIz2Fe7OUfoe_Er9BJwNlhE",
+    authDomain: "meetup-test.firebaseapp.com",
+    databaseURL: "https://meetup-test.firebaseio.com",
+    storageBucket: "meetup-test.appspot.com",
+    messagingSenderId: "1089451320274",
 };
+/* tslint:enable */
 
 @Component({
     template: `<ion-nav [root]="rootPage"></ion-nav>`,

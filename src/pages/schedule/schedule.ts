@@ -1,9 +1,7 @@
 import { Component , NgZone } from '@angular/core';
-import { NavController } from 'ionic-angular';
 import { Schedule } from '../../providers/schedule';
 
-// attempt 1: add firebase directly
-// import * as firebase from 'firebase';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'page-schedule',
@@ -12,7 +10,8 @@ import { Schedule } from '../../providers/schedule';
 export class SchedulePage {
     public schedule;
 
-    constructor(ngZone: NgZone, schedule: Schedule) {
+    constructor( ngZone: NgZone, scheduleProvider: Schedule) {
+        // Variation 1: user local dummy data
         // this needs to be valid JSON in case we want to cut&paste to Firebase!
         /* tslint:disable */
         const dummy =  [
@@ -38,34 +37,37 @@ export class SchedulePage {
                 "speaker": "John"
             }
 
-            ];
+        ];
         /* tslint:enable */
+        this.schedule = dummy;
 
-        // this.schedule = dummy;
-
-        schedule.getObserver().subscribe(
-            data => {
-                console.log('new data has arrived on page:', data);
-                this.schedule = data;
-            }
-        );
-        /*
-        firebase.database().ref('schedule').on('value',
+        /* Variation 2: use subscribe to firebase directly
+        firebase.database().ref('v1/public/schedule').on('value',
             (snapshot) => {
                 let newData = snapshot.val();
                 console.log('new data has arrived - you better update', newData);
-                ngZone.run(()=>{
+                this.schedule = newData;
+                ngZone.run(() => {
                     this.schedule = newData;
-                })
+                });
             },
             err => { console.error (err); },
             this   // good practice -> avoids "that...."
-        )
+        );
+        */
+
+        /* Variation 3: use provider (recommended ;-)
+        scheduleProvider.getObserver().subscribe(
+             data => {
+                 console.log('new data has arrived on page:', data);
+                 this.schedule = data;
+             }
+        );
         */
     }
 
-    openEvent(event) {
-        console.log('should open event (not yet implented):', event);
+    openEvent(slot) {
+        console.log('should open event (not yet implemented):', slot);
     }
 
     ionViewDidLoad() {

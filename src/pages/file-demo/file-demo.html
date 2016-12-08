@@ -1,0 +1,16 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>File Handling</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <button ion-button (click)="uploadDemo()">upload demo</button>
+    <ion-item>Progress: {{progress}} % done</ion-item>
+    <button ion-button (click)="downloadDemo()">"download" demo</button>
+    <ion-item><a [href]="downloadUrl" *ngIf="downloadUrl!==''">this is the retrieved link</a></ion-item>
+
+</ion-content>
