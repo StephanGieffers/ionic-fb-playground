@@ -1,14 +1,14 @@
 # IONIC-firebase playground
-This is sample project created for the Berlin IONIC Meetup to present some integration challanges with IONIC 2 and Firebase, 
+This is sample project created for the Berlin IONIC Meetup to demo the integration between with IONIC 2 and Firebase, 
 especially (Realtime) Database and Storage.
 
- 
-## <a name="installation"></a>Installation & Configuration
-### Build on IONIC 2 Boilerplate
- This app is build based on the outrageous []IONIC 2 Boilerplate Template from Marco Turi](https://github.com/marcoturi/ionic2-boilerplate)
- 
- Most of the content in the section is based on Marcos original Readme.
-### <a name="quick-start"></a>Quick Start/ Dependencies
+You can have a look at the presentation if you are bothered. They are in the "materials" folder of this repo.
+
+## Installation
+### Part 1 - Git
+If you really want to install this locally you need to follow these steps. Because I am use a boilertemplate (see below) 
+there is more stuff to download than is actually required (sorry for that...).
+
 ```bash
 # Required dependecies (on Mac Os also install ios-sim and ios-deploy)
 npm i -g cordova ionic yarn
@@ -17,10 +17,10 @@ gem install scss_lint
 // TODO: add information on how to clone this project
 
 # Clone the repo --depth 1 removes all but one .git commit history
-git clone --depth 1 https://github.com/marcoturi/ionic2-boilerplate.git
+git clone https://github.com/StephanGieffers/ionic-fb-playground.git
 
 # Change directory
-cd ionic2-boilerplate
+cd ionic-fb-playground
 
 # Install project dependencies
 yarn
@@ -29,72 +29,111 @@ npm run post-install
 # Launch ionic serve
 npm run dev
 ```
-**TO RUN IONIC: Make sure you have Node version >= 6.X and NPM >= 3** <br>
-**TO RUN SCSS-LINT: Make sure you have Ruby >= 2** <br>
-**TO RUN PROTRACTOR/E2E TESTS: Make sure you have Python = 2.X**
 
-### <a name="npm-scripts"></a>NPM scripts commands
-| Task              | Description                                            |
-|-------------------|--------------------------------------------------------|
-| `dev`             | Run ionic serve                                        |
-| `build`           | Full production build. Use `--dev` flag for dev build. |
-| `release`         | Generate changelog based on commits                    |
-| `push`            | Shortcut for git push origin master --follow-tags      |
-| `lint`            | Lint with tslint                                       |
-| `scss-lint`       | Lint scss                                              |
-| `test`            | Runs Karma test                                        |
-| `test:watch`      | Runs Karma test watching for edits (TDD style)         |
-| `e2e`             | Runs e2e protractor tests                              |
-| `e2e:interactive` | Runs e2e protractor tests in interactive mode          |
-| `docs`            | Generate code documentation through Typedoc            |
-| `outdated`        | Search npm packages for outdated dependencies          |
-| `post-install`    | Update web-driver to be able to run e2e tests.         |
-| `ios:dev`         | Build .ipa using dev environment vars                  |
-| `ios:release`     | Build .ipa with production environment vars            |
-| `android:dev`     | Build .apk using dev environment vars                  |
-| `android:release` | Build .apk with production environment vars            |
+### Installation - Part 2 - Firebase
+[Please create your on Firebase Project](https://firebase.google.com/). In only takes a couple of minutes. 
+The firebase project referenced in the code is set to be
+read only - so any features with updates will not work...
 
-### <a name="git-workflow"></a>Git Workflow
-- Optionally you can use [Git flow](http://danielkummer.github.io/git-flow-cheatsheet/)
-- If you want to bump the changelog, run "npm run release"
-- This repo has a [mirror repo in gitlab for CI](https://gitlab.com/marco_turi/ionic2-boilerplate) after every push on master you will get automatically all tests and lints run. To get .ipa and .apk build you need to push to the release git branch. The reason is to avoid unnecessary builds (free limit is 100/month) for ios.  
-- You should consider to write a shortcut in .bashrc for the following commands<br>
-**Workflow:**<br>
+## Code/ Demo walkthrough
+### Setting up standard firebase
+In you firebase project console click on the "Add Firebase to your web app" link and copy the conig variable values.
+Then paste it into src/apps/app.components.
+
+To setup firebase for Ionic all you need to do is to npm install it (should have happened already), import it to your
+components and then run the initialzeApp method with your configuration.
+It's easy - you will figure it out when looking at the code-
+
+### Setting up AngularFire
+The code also uses AngularFire. To install Angular fire, have a look into the src/app/app.module. There you find what
+is necessary (make sure to update the config vars!!!).
+
+Please note, that you may not required the firebase setup when you are using AngularFire. In the demo I presented both
+approaches.
+
+### Step 1: Basic scenario using dummy data
+The idea is, that we want to create a time schedule for a conference. So we create some html code, create sommy dummy
+data in our page object to play with and figure out the basic html/css code.
+
+All of this can be found in src/pages/schedule.
+Make sure to fire up ionic serve (you can use `npm run dev` as well...).
+
+
+### Step 2: Moving data into firebase
+Copy and paste the array with you dummy data, got your firebase console/ data and create a variable with the name:
+v1/public/schedule and paste the dumm data in as the value. As a result you should see tree with your dummy data.
+
+If you disalbe the code and enable the getFirebaseData method, wait for your ui to update, you should see ....
+
+... an error message in your console.
+
+The reason is, that your firebase database only allows authorized access by default. So go to your firebase console/Database,
+open the Rules tab and se the rules as follows:
+```bash
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
 ```
-git add .
-npm run commit // this will run tslint + scss lint + commit
-npm run push // this will run unit tests + push to master
-// now check on GITLAB if there are no errors, than if you want push your commits to the release branch to get automatic ipa and apk
+Never do this in real life - because everybody - even I  - can write data into your database....
+
+If you now refresh your webpage, you should see the data. But it is showing up delayed, or maybe even only after you
+click on other tabs. The reason is that angular is not catching the firebase updates... What you need to do is run the
+update in ngZone. You will the details in the code. Once you enable that you will have immediate updates. When you 
+cchange a value in the console you can immediately see the updates on you web page.
+
+### Step 3 Moving the code into a provider
+Of course you should not run you firebase code in the page object, but rather use a provider. The code is included in
+page and in src/providers/schedule.
+
+### Step 4 (optional) Add more sample data
+If you want additional sample data, you will find an Excel file in the "materials". If you have Excel, you can open it,
+copy the values and paste them [here in the csv section](http://www.convertcsv.com/csv-to-json.htm). Using the site you
+can convert it to json and overwrite the schedule variable in your firebase console.
+
+This is not required, but just a showcase how can get your customer's data into firebase in quick and dirty fashion... 
+
+### Step 5 Doing the same with AngularFire
+If you look at the src/pages/schedule-af you will see how the same can be done with AngularFire (in the WebUI this is
+the second tab).
+
+### Step 6 Adding a like feature
+The code also features a "like" feature. Check out the html and page code to figure out how it works.
+There is a simple implementation that just updates the session schedule. In addition there is a proper solution
+that is storing the updates on a per user basis.
+
+
+### Storage Demo
+The storage demo code is in the page src/pages/file-demo. It's very plain and straightforward.
+
+For this code to work you need to relax your firebase storage rules as follows:
+
+``` bash
+service firebase.storage {
+  match /b/meetup-live-a767b.appspot.com/o {
+    match /{allPaths=**} {
+      allow read, write: if true;
+    }
+  }
+}
 ```
 
-### <a name="links"></a>Useful Links
-- [Search engine for find typescript typings](http://microsoft.github.io/TypeSearch/)
-- [Cordova-xcode 8](https://dpogue.ca/articles/cordova-xcode8.html)
-- [Ionic package setup](https://docs.ionic.io/services/package/)
-- [Useful Hooks](https://github.com/driftyco/ionic-package-hooks)
+**Please!!!!: protect your storage after playing - you don't want your storage to be used by some gangsters...** 
 
-### <a name="ionic-cordova"></a>Ionic & Cordova
-- Avoid the use of ionic state commands and also ionic plugin/platform. Use directly cordova prepare (or cordova plugin/platform). Also save your plugin/platform only inside config.xml, not package.json to avoid confusion. See [this](https://github.com/driftyco/ionic-cli/issues/1324) for further informations. 
 
-### <a name="webstorm"></a>Webstorm
-- Set code style for typesript:
-    - {import} -> { import }
-    - import * from "lodash" -> import * from 'lodash'
-- Set typescript settings to be used with the version inside node_modules instead of the bundled one (1.8)
-- [Don't activate typescript compiler.](https://github.com/driftyco/ionic/issues/8303)
-- Enable tslint in settings
-- Download scss lint plugin and enable it
 
-### <a name="windows"></a>Windows
-- You should avoid Windows. I tried a lot of times and at the end found myself switching to a Mac VM or Hackintosh or Linux distro. The following tips are not resolutive but can help you set up a nice environment.
-- Instead of windows terminal I used [cmder](https://github.com/cmderdev/cmder).
-- If you use Webstorm. Set terminal settings as follow -> "cmd.exe" /k ""%CMDER_ROOT%\vendor\init.bat""
-- Remember to re-start webstorm every time you make a change to the terminal.
-- npm install --global --production windows-build-tools //node-gyp fix
-- Set webstorm to write with line endingds LF (mac os or unix)
-- To avoid git warnings: git config core.autocrlf false
-- e2e commands is not working on windows, because the python server can't be launched. As a workaround add START /B before python -m and remove & at the end of the line in package.json. Anyway you will have to kill manually the process every time after every execution.
-
+ 
+## Credits
+### Build on IONIC 2 Boilerplate
+ This app is build based on the outrageous []IONIC 2 Boilerplate Template from Marco Turi](https://github.com/marcoturi/ionic2-boilerplate)
+ 
+ It is a little oversized for this demo, but I am so used to it that I really don't want to miss it...
+ 
+ You should really checkout Marcos page to find about how to run karma, protractor, .....
+ 
+ 
 ## <a name="license"></a>License
-    Copyright (c) 2016 Marco Turi
+    Copyright (c) 2016 Stephan Gieffers 
     Source code is open source and released under the MIT license.
