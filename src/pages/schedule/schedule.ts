@@ -10,10 +10,11 @@ import * as firebase from 'firebase';
 export class SchedulePage {
     public schedule;
 
-    constructor( ngZone: NgZone, scheduleProvider: Schedule) {
+    constructor( private ngZone: NgZone, scheduleProvider: Schedule) {
         // Variation 1: user local dummy data
         // this needs to be valid JSON in case we want to cut&paste to Firebase!
         /* tslint:disable */
+        // Variation 1: use local dummy data to get started
         const dummy =  [
             {
                 "sessionID": "1",
@@ -41,29 +42,39 @@ export class SchedulePage {
         /* tslint:enable */
         this.schedule = dummy;
 
-        /* Variation 2: use subscribe to firebase directly
-        firebase.database().ref('v1/public/schedule').on('value',
-            (snapshot) => {
-                let newData = snapshot.val();
-                console.log('new data has arrived - you better update', newData);
-                this.schedule = newData;
-                ngZone.run(() => {
-                    this.schedule = newData;
-                });
-            },
-            err => { console.error (err); },
-            this   // good practice -> avoids "that...."
-        );
-        */
+        // Variation 2: put your data into firebase and subscribe to updates
+        // in your firebase instance create a variable witht the path: v1/public/schedule
+        // and copy&paste the array with dummy data from above
+        // this.getDataFromFirebaseDirectly();
 
         /* Variation 3: use provider (recommended ;-)
-        scheduleProvider.getObserver().subscribe(
+        scheduleProvider.data.subscribe(
              data => {
                  console.log('new data has arrived on page:', data);
                  this.schedule = data;
              }
         );
         */
+    }
+
+    getDataFromFirebaseDirectly() {
+        firebase.database().ref('v1/public/schedule').on('value',
+            (snapshot) => {
+                let newData = snapshot.val();
+                console.log('new data has arrived - you better update', newData);
+                this.schedule = newData;
+                // unfortunatley this does not work as expected!
+                // as firebase is running in a seperate process it does not catch this change
+                // and refresh immediately
+
+                /* instead you need to run this update in ngZone so the UI updates immediately
+                this.ngZone.run(() => {
+                   this.schedule = newData;
+                });
+                */
+            },
+            err => { console.error (err); }
+        );
     }
 
     openEvent(slot) {

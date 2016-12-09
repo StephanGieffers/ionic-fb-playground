@@ -8,11 +8,11 @@ import * as firebase from 'firebase';
 // This is not a secret! The information is known to whomever can run a debugger
 /* tslint:disable */
 export const firebaseConfig = {
-    apiKey: "AIzaSyAiB9UInPT3SIz2Fe7OUfoe_Er9BJwNlhE",
-    authDomain: "meetup-test.firebaseapp.com",
-    databaseURL: "https://meetup-test.firebaseio.com",
-    storageBucket: "meetup-test.appspot.com",
-    messagingSenderId: "1089451320274",
+    apiKey: "AIzaSyC02tUYxK5jBip0-2vwiKvBEd2p3Tss0SM",
+    authDomain: "meetup-live-a767b.firebaseapp.com",
+    databaseURL: "https://meetup-live-a767b.firebaseio.com",
+    storageBucket: "meetup-live-a767b.appspot.com",
+    messagingSenderId: "776909017389"
 };
 /* tslint:enable */
 
