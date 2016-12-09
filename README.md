@@ -1,5 +1,5 @@
 # IONIC-firebase playground
-This is a sample project created for the Berlin IONIC Meetup on December 9th, 2016, to demo the integration between with IONIC 2 and Firebase
+This is a sample project created for the [IONIC Berlin Meetup](http://www.meetup.com/de-DE/Ionic-Berlin/) on December 9th, 2016, to demo the integration between with IONIC 2 and Firebase
  in regards to (Realtime) Database and Storage.
 
 You can have a look at the presentation if you are bothered. They are in the ["materials"](https://github.com/StephanGieffers/ionic-fb-playground/tree/master/materials) folder of this repo.
